@@ -80,4 +80,10 @@ def get_terms():
     return notes
 
 
+@app.get("/terms/{terms_id}")
+def get_terms(terms_id:int):
+    for note in notes:
+        if note["id"] == terms_id:
+            return note
+    return {"message": "Term not found"}
 
