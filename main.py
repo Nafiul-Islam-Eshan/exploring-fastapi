@@ -1,4 +1,5 @@
 from fastapi import FastAPI
+from pydantic import BaseModel
 
 app = FastAPI()
 
@@ -69,6 +70,12 @@ notes = [
     },
 ]
 
+class Note(BaseModel):
+    term : str 
+    defination : str
+    js_equivalent: str | None = None
+    tags : list[str] = []    
+    learned : bool = False    
 
 @app.get("/")
 def root():
@@ -96,8 +103,8 @@ def get_terms(terms_id:int):
 
 
 @app.post("/terms", status_code=201)
-def add_term(note : dict):
+def add_term(note : Note):
     new_node = {"id" : len(notes)+1}
-    new_node.update(note)
+    new_node.update(note.model_dump())
     notes.append(new_node)        
     return new_node
