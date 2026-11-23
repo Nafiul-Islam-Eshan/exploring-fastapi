@@ -81,7 +81,7 @@ def get_terms(tag: str | None = None, term: str | None=None):
     for note in notes:
         if tag and tag not in note["tags"]:
             continue
-        if term and term not in note["term"]:
+        if term and term.lower() not in note["term"].lower():
             continue
         result.append(note)
     return result
