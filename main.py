@@ -76,10 +76,12 @@ def root():
 
 
 @app.get("/terms")
-def get_terms(tag: str | None = None):
+def get_terms(tag: str | None = None, term: str | None=None):
     result = []
     for note in notes:
         if tag and tag not in note["tags"]:
+            continue
+        if term and term not in note["term"]:
             continue
         result.append(note)
     return result
