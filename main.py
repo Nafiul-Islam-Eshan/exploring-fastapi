@@ -94,3 +94,10 @@ def get_terms(terms_id:int):
             return note
     return {"message": "Term not found"}
 
+
+@app.post("/terms", status_code=201)
+def add_term(note : dict):
+    new_node = {"id" : len(notes)+1}
+    new_node.update(note)
+    notes.append(new_node)        
+    return new_node
