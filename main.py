@@ -76,8 +76,13 @@ def root():
 
 
 @app.get("/terms")
-def get_terms():
-    return notes
+def get_terms(tag: str | None = None):
+    result = []
+    for note in notes:
+        if tag and tag not in note["tags"]:
+            continue
+        result.append(note)
+    return result
 
 
 @app.get("/terms/{terms_id}")
