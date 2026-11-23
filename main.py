@@ -36,7 +36,7 @@ notes = [
         "learned": False,
     },
     {
-        "id": 6,
+        "id": 5,
         "term": "tuple",
         "defination": "An ordered, immutable collection of items.",
         "js_equivalent": "No direct equivalent",
@@ -44,7 +44,7 @@ notes = [
         "learned": False,
     },
     {
-        "id": 7,
+        "id": 6,
         "term": "set",
         "defination": "An unordered collection of unique elements.",
         "js_equivalent": "Set",
@@ -52,7 +52,7 @@ notes = [
         "learned": False,
     },
     {
-        "id": 8,
+        "id": 7,
         "term": "loop",
         "defination": "A control structure that repeats a block of code.",
         "js_equivalent": "for / while",
@@ -60,7 +60,7 @@ notes = [
         "learned": True,
     },
     {
-        "id": 9,
+        "id": 8,
         "term": "None",
         "defination": "A special value representing the absence of a value.",
         "js_equivalent": "null",
