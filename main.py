@@ -130,7 +130,7 @@ def update_term(term_id : int, changes : NoteUpdate):
         
 
 
-@app.delete("/terms/{term_id}")
+@app.delete("/terms/{term_id}", status_code=204)
 def delete_term(term_id : int):
     
     for note in notes:
