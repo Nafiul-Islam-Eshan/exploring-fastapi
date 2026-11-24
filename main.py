@@ -1,5 +1,6 @@
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
+import random
 
 app = FastAPI()
 
@@ -101,6 +102,13 @@ def get_terms(tag: str | None = None, term: str | None=None):
             continue
         result.append(note)
     return result
+
+
+@app.get("/terms/random")
+def random_term():
+    if not notes:
+        raise HTTPException(status_code=404, message="No term available")
+    return random.choice(notes)
 
 
 @app.get("/terms/{terms_id}")
