@@ -1,4 +1,4 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
 
 app = FastAPI()
@@ -108,11 +108,15 @@ def get_terms(terms_id:int):
     for note in notes:
         if note["id"] == terms_id:
             return note
-    return {"message": "Term not found"}
+    raise HTTPException(status_code=404, detail="term not found")
 
 
 @app.post("/terms", status_code=201)
 def add_term(note : Note):
+    for existing in notes:
+        if existing["term"].lower() == note.term.lower():
+            raise HTTPException(status_code=409, detail="term already exists")
+            
     new_id = 1
     for exist in notes:
         if exist["id"] >= new_id:
@@ -130,7 +134,7 @@ def update_term(term_id : int, changes : NoteUpdate):
         if term_id == note["id"]:
             note.update(changes.model_dump(exclude_unset=True))
             return note
-    return {"message": "Term not found"}
+    raise HTTPException(status_code=404, detail="term not found")
         
 
 
@@ -141,7 +145,7 @@ def delete_term(term_id : int):
         if note["id"] == term_id:
             notes.remove(note)
             return {"message": "Term deleted successfully"}
-    return{"message" : "Term not found"}
+    raise HTTPException(status_code=404, detail="term not found")
 
 
 
