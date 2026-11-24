@@ -113,7 +113,11 @@ def get_terms(terms_id:int):
 
 @app.post("/terms", status_code=201)
 def add_term(note : Note):
-    new_node = {"id" : len(notes)+1}
+    new_id = 1
+    for exist in notes:
+        if exist["id"] >= new_id:
+            new_id = exist["id"] + 1
+    new_node = {"id" : new_id}
     new_node.update(note.model_dump())
     notes.append(new_node)        
     return new_node
