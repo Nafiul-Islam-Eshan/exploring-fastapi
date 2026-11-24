@@ -76,6 +76,15 @@ class Note(BaseModel):
     js_equivalent: str | None = None
     tags : list[str] = []    
     learned : bool = False    
+    
+
+class NoteUpdate(BaseModel):
+    term: str  | None = None
+    defination : str | None = None
+    js_equivalent : str | None = None
+    tags : list[str] | None = None
+    learned : bool | None = None
+
 
 @app.get("/")
 def root():
@@ -108,3 +117,23 @@ def add_term(note : Note):
     new_node.update(note.model_dump())
     notes.append(new_node)        
     return new_node
+
+
+
+@app.patch("/terms/{term_id}")
+def update_term(term_id : int, changes : NoteUpdate):
+    for note in notes:
+        if term_id == note["id"]:
+            note.update(changes.model_dump(exclude_unset=True))
+            return note
+    return {"message": "Term not found"}
+        
+
+
+
+
+
+
+
+    
+
