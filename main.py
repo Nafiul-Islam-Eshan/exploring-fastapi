@@ -130,8 +130,14 @@ def update_term(term_id : int, changes : NoteUpdate):
         
 
 
-
-
+@app.delete("/terms/{term_id}")
+def delete_term(term_id : int):
+    
+    for note in notes:
+        if note["id"] == term_id:
+            notes.remove(note)
+            return {"message": "Term deleted successfully"}
+    return{"message" : "Term not found"}
 
 
 
